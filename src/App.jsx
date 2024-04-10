@@ -1,27 +1,24 @@
-import { useState } from 'react'
-import './App.css'
-import { TbPencilPlus } from 'react-icons/tb'
-import { RiCheckboxBlankFill, RiCheckboxFill, RiDeleteBin6Line } from 'react-icons/ri'
-import { v4 as uuid } from "uuid"
+import { useEffect, useState } from 'react';
+import './App.css';
+import { v4 as uuid } from "uuid";
+import Popup from './components/Popup';
+import Header from './components/Header';
+import List from './components/List';
 
-const toDoStart = [
-  {
-    id: uuid(),
-    text: "test",
-    complete: true,
-  },
-  {
-    id: uuid(),
-    text: "test",
-    complete: false,
-  }
-]
 
 function App() {
-  const [toDo, setToDo] = useState(toDoStart)
+  const [toDo, setToDo] = useState(() => {
+    const storedList = localStorage.getItem('toDoList')
+    return storedList ? JSON.parse(storedList) : [];
+  })
   const [popUp, setPopUp] = useState(false)
   const [newTaskText, setNewTaskText] = useState("")
   const [taskError, setTaskError] = useState(false)
+
+useEffect(() => {
+  localStorage.setItem("toDo", JSON.stringify(toDo));
+}, [toDo]);
+
 
 function handleNewTask()  {
   if (newTaskText !== "") {
@@ -65,65 +62,22 @@ function deleteTask(id) {
 
   return (
     <>
-      { popUp &&
-        <div className="popup-container"> 
-        <div className="popup">
-          <p className="popup-title">
-            New Task
-          </p>
-          { taskError && 
-            <p className="popup-error">
-              Error: Please enter text into the field before submitting
-            </p>
-          }
-          <input className="popup-input"
-          type="text" 
-          value={newTaskText}
-          onChange={(e) => setNewTaskText(e.target.value)}
-          />
-          <div className="popup-buttons-container">
-            <button onClick={()=> setPopUp(false)} className="popup-button back"> 
-              Return
-            </button>
-            <button onClick={handleNewTask} className="popup-button add"> 
-              Add New Task
-            </button>
-          </div>
-        </div>
-        </div>
-      }
-      <div className="header">
-        <div className="header-container">
-          <p className="header-title">My Tasks</p>
-          <div onClick={() => setPopUp(true)}className="header-add">
-            <TbPencilPlus />
-          </div>
-        </div>
-      </div>
-      <hr  className="header-break" />
-      <div className="todo-list">
-        {toDo.map(toDos => {
-          return (
-            <>
-            <div className="todo-container" key={toDos.key}>
-              <div className="todo-container-left">
-                <p onClick={() => toggleComplete(toDos.id)}className="todo-checkbox">
-                  { toDos.complete ? <RiCheckboxFill /> : <RiCheckboxBlankFill />}
-                 
-                </p>
-                <p className="todo-text">
-                  {toDos.text}
-                </p>
-            </div>
-              <p onClick={() => deleteTask(toDos.id)} className="todo-delete">
-                <RiDeleteBin6Line />
-              </p>
-            </div>
-            </>
-            )
-        })}
-        
-      </div>
+      <Popup
+        popUp={popUp}
+        setPopUp={setPopUp}
+        setNewTaskText={setNewTaskText}
+        newTaskText={newTaskText}
+        taskError={taskError}
+        handleNewTask={handleNewTask}
+        />
+      <Header
+        setPopUp={setPopUp}
+        />
+      <List 
+      toDo={toDo}
+      toggleComplete={toggleComplete}
+      deleteTask={deleteTask}
+      /> 
     </>
   )
 }
