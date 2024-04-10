@@ -29,10 +29,16 @@ function App() {
 
           </p>
           <input className="pop-up-input"
-          type="text" />
-          <div>
-            <button> </button>
-            <button> </button>
+          type="text" 
+          value="" 
+          />
+          <div className="pop-up-buttons-container">
+            <button className="pop-up-button back"> 
+              Return
+            </button>
+            <button className="pop-up-button add"> 
+              Add New Task
+            </button>
           </div>
         </div>
       </div>
