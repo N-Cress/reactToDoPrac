@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 import { TbPencilPlus } from 'react-icons/tb'
-import { RiCheckboxBlankFill, RiDeleteBin6Line } from 'react-icons/ri'
+import { RiCheckboxBlankFill, RiCheckboxFill, RiDeleteBin6Line } from 'react-icons/ri'
 import { v4 as uuid } from "uuid"
 
 const toDoStart = [
   {
     id: uuid(),
     text: "test",
-    complete: false,
+    complete: true,
   },
   {
     id: uuid(),
@@ -18,8 +18,44 @@ const toDoStart = [
 ]
 
 function App() {
-  const [toDo, settoDo] = useState(toDoStart)
+  const [toDo, setToDo] = useState(toDoStart)
   const [popUp, setPopUp] = useState(false)
+  const [newTaskText, setNewTaskText] = useState("")
+  const [taskError, setTaskError] = useState(false)
+
+function handleNewTask()  {
+  if (newTaskText !== "") {
+    setToDo(current => {
+      return [...current,
+      {
+        id: uuid(),
+        text: newTaskText,
+        complete: false,
+      }
+      ]
+    })
+    setPopUp(false)
+    setNewTaskText("")
+    setTaskError(false)
+  }
+  else {
+    setTaskError(true)
+  }
+}
+
+function toggleComplete(id) {
+  setToDo(current => {
+    return current.map(item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          complete: !item.complete
+        }
+      } 
+      return item;
+    })
+  })
+}
 
   return (
     <>
@@ -29,15 +65,21 @@ function App() {
           <p className="popup-title">
             New Task
           </p>
+          { taskError && 
+            <p className="popup-error">
+              Error: Please enter text into the field before submitting
+            </p>
+          }
           <input className="popup-input"
           type="text" 
-          value="" 
+          value={newTaskText}
+          onChange={(e) => setNewTaskText(e.target.value)}
           />
           <div className="popup-buttons-container">
             <button onClick={()=> setPopUp(false)} className="popup-button back"> 
               Return
             </button>
-            <button className="popup-button add"> 
+            <button onClick={handleNewTask} className="popup-button add"> 
               Add New Task
             </button>
           </div>
@@ -59,8 +101,8 @@ function App() {
             <>
             <div className="todo-container" key={toDos.key}>
               <div className="todo-container-left">
-                <p className="todo-checkbox">
-                  { toDos.complete ? <RiCheckboxBlankFill /> : <div> Hello</div>}
+                <p onClick={() => toggleComplete(toDos.id)}className="todo-checkbox">
+                  { toDos.complete ? <RiCheckboxFill /> : <RiCheckboxBlankFill />}
                  
                 </p>
                 <p className="todo-text">

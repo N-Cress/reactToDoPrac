@@ -53,18 +53,27 @@ body {
 .todo-list {
   display: flex;
   width: 100%;
+  flex-direction: column;
 }
 
 .todo-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  margin: 0px 16px;
+  margin: 4px 16px;
   background-color: red;
   color: white;
   padding: 0px 24px;
   border-radius: 12px;
+  transition-property: border-width, border-style;
+  transition-duration: 0.25s, 0.25s;
+  
+}
+
+.todo-container:hover {
+  border-width: 12px;
+  border-style: solid;
+
 }
 
 .todo-container-left {
@@ -78,6 +87,11 @@ body {
   display: flex;
 }
 
+.todo-checkbox:hover {
+  opacity: 85%;
+  cursor: pointer;
+}
+
 .todo-text {
   font-size: 24px;
   font-weight: 700; 
@@ -86,6 +100,12 @@ body {
 .todo-delete {
   font-size: 48px;
 }
+
+.todo-delete:hover {
+  opacity: 85%;
+  cursor: pointer;
+}
+
 
 /* Popup */
 
@@ -103,6 +123,7 @@ body {
 .popup {
   background-color: white;
   height: 300px;
+  width: 300px;
   opacity: 100%;
   padding: 24px 80px;
   display: flex;
@@ -123,6 +144,11 @@ body {
 .popup-title {
   font-size: 42px;
   margin-bottom: 12px;
+}
+
+.popup-error{
+  font-size: 18px;
+  color: red;
 }
 
 .popup-input {
