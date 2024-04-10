@@ -57,6 +57,12 @@ function toggleComplete(id) {
   })
 }
 
+function deleteTask(id) {
+  setToDo(current => {
+    return current.filter(item => item.id !== id)
+  })
+}
+
   return (
     <>
       { popUp &&
@@ -109,7 +115,7 @@ function toggleComplete(id) {
                   {toDos.text}
                 </p>
             </div>
-              <p className="todo-delete">
+              <p onClick={() => deleteTask(toDos.id)} className="todo-delete">
                 <RiDeleteBin6Line />
               </p>
             </div>
