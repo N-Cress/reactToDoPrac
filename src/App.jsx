@@ -34,7 +34,7 @@ function App() {
           value="" 
           />
           <div className="popup-buttons-container">
-            <button className="popup-button back"> 
+            <button onClick={()=> setPopUp(false)} className="popup-button back"> 
               Return
             </button>
             <button className="popup-button add"> 
@@ -47,7 +47,7 @@ function App() {
       <div className="header">
         <div className="header-container">
           <p className="header-title">My Tasks</p>
-          <div className="header-add">
+          <div onClick={() => setPopUp(true)}className="header-add">
             <TbPencilPlus />
           </div>
         </div>
