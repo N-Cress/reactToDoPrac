@@ -23,25 +23,27 @@ function App() {
 
   return (
     <>
-      <div className="pop-up-container"> 
-        <div className="pop-up">
-          <p className="pop-up-title">
-
+      { popUp &&
+        <div className="popup-container"> 
+        <div className="popup">
+          <p className="popup-title">
+            New Task
           </p>
-          <input className="pop-up-input"
+          <input className="popup-input"
           type="text" 
           value="" 
           />
-          <div className="pop-up-buttons-container">
-            <button className="pop-up-button back"> 
+          <div className="popup-buttons-container">
+            <button className="popup-button back"> 
               Return
             </button>
-            <button className="pop-up-button add"> 
+            <button className="popup-button add"> 
               Add New Task
             </button>
           </div>
         </div>
-      </div>
+        </div>
+      }
       <div className="header">
         <div className="header-container">
           <p className="header-title">My Tasks</p>

@@ -2,7 +2,10 @@
   font-family:Arial, Helvetica, sans-serif;
 }
 
-/* Styling for header  */
+body {
+  margin: 0px;
+}
+/* Header  */
 
 .header {
   display: flex;
@@ -40,7 +43,7 @@
   background-color: black;
 }
 
-/* Styling for list  */
+/* List and List Items  */
  
 .todo-list {
   display: flex;
@@ -77,4 +80,64 @@
 
 .todo-delete {
   font-size: 48px;
+}
+
+/* Popup */
+
+.popup-container {
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 80%);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background-color: white;
+  height: 300px;
+  opacity: 100%;
+  padding: 24px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.popup-button {
+  border-style: none;
+  margin: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+}
+
+.popup-title {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.popup-input {
+  height: 20%;
+  width: 100%;
+}
+
+.add {
+  background-color: green;
+}
+
+.add:hover {
+  opacity: 90%;
+  cursor: pointer;
+}
+.back {
+  background-color: red;
+}
+
+.back:hover {
+  opacity: 80%;
+  cursor: pointer;
 }
